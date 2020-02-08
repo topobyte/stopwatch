@@ -16,12 +16,16 @@ public class TestSimpleSequentialStopwatch
 	{
 		SimpleSequentialStopwatch watch = new SimpleSequentialStopwatch();
 
+		int total = 0;
+
 		List<String> phases = new ArrayList<>();
 		Map<String, Integer> times = new HashMap<>();
 		for (int i = 1; i <= 4; i++) {
 			String name = "phase" + i;
 			phases.add(name);
-			times.put(name, 100 * i);
+			int len = 100 * i;
+			times.put(name, len);
+			total += len;
 		}
 
 		for (String phase : phases) {
@@ -36,6 +40,9 @@ public class TestSimpleSequentialStopwatch
 			Assert.assertTrue(measured >= expected);
 			Assert.assertTrue(measured < expected + 100);
 		}
+
+		Assert.assertTrue(watch.total() >= total);
+		Assert.assertTrue(watch.total() < total + 100);
 	}
 
 	private void sleep(int millis)
